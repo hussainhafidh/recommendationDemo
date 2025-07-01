@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Store | Home</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; background-color: #f9f9f9; }
+    header { background-color: #222; color: #fff; padding: 20px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; }
+    .welcome { padding: 30px; background: #fff; text-align: center; }
+    .product-section { padding: 20px; }
+    .product-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .product-card { border: 1px solid #ccc; background: white; padding: 10px; text-align: center; border-radius: 8px; transition: transform 0.2s; }
+    .product-card:hover { transform: scale(1.03); }
+    .product-card img { max-width: 120px; height: auto; margin-bottom: 10px; }
+    footer { background: #222; color: #fff; padding: 20px; text-align: center; margin-top: 40px; }
+    a { text-decoration: none; color: inherit; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🛒 My Online Store</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="welcome">
+    <h2>Welcome to Our Store</h2>
+    <p>Browse our collection of exclusive products. Click on any item to view details.</p>
+  </section>
+
+  <section class="product-section">
+    <h2 style="text-align:center">Featured Products</h2>
+    <div class="product-list" id="productList"></div>
+  </section>
+
+  <footer>
+    &copy; 2025 My Online Store. All rights reserved.
+  </footer>
+
+  <script>
+    window.adobeDataLayer = window.adobeDataLayer || [];
+    adobeDataLayer.push({
+      page: { pageName: "Homepage" }
+    });
+
+    fetch("https://fakestoreapi.com/products")
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("productList");
+        data.slice(0, 20).forEach(product => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.innerHTML = `
+            <a href="product.html?id=${product.id}">
+              <img src="${product.image}" alt="${product.title}" />
+              <p><strong>${product.title}</strong></p>
+            </a>
+          `;
+          list.appendChild(card);
+        });
+      });
+  </script>
+
+</body>
+</html>

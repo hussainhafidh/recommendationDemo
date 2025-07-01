@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Detail</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .product-detail { display: flex; flex-direction: column; align-items: center; }
+    img { max-width: 200px; }
+  </style>
+</head>
+<body>
+  <h1>Product Detail</h1>
+  <div class="product-detail" id="productDetail"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get("id");
+
+    fetch(`https://fakestoreapi.com/products/${productId}`)
+      .then(res => res.json())
+      .then(product => {
+        document.title = product.title;
+        const container = document.getElementById("productDetail");
+        container.innerHTML = `
+          <img src="${product.image}" alt="${product.title}" />
+          <h2>${product.title}</h2>
+          <p>${product.description}</p>
+          <p><strong>Price:</strong> $${product.price}</p>
+        `;
+
+        // Adobe Data Layer push
+        window.adobeDataLayer = window.adobeDataLayer || [];
+        adobeDataLayer.push({
+          page: {
+            pageName: "Product Detail Page"
+          },
+          product: {
+            productID: product.id.toString(),
+            productName: product.title,
+            productURL: window.location.href,
+            productImageURL: product.image,
+            productCaption: product.description
+          }
+        });
+      });
+  </script>
+</body>
+</html>
