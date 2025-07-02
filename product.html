@@ -2,23 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
- <script>   
-// Adobe Data Layer push
-        window.adobeDataLayer = window.adobeDataLayer || [];
-        adobeDataLayer.push({
-          page: {
-            pageName: "Product Detail Page",
-            language: "en"
-          },
-          product: {
-            productID: product.id.toString(),
-            productName: product.title,
-            productURL: window.location.href,
-            productImageURL: product.image,
-            productCaption: product.description
-          }
-        });</script>
-  <script src="https://assets.adobedtm.com/e78d80a30a77/47da9780823f/launch-16c5cbf83423-development.min.js" async></script>
+  
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product Detail</title>
@@ -47,7 +31,23 @@
           <p>${product.description}</p>
           <p><strong>Price:</strong> $${product.price}</p>
         `;
+       // Adobe Data Layer push
+        window.adobeDataLayer = window.adobeDataLayer || [];
+        adobeDataLayer.push({
+          page: {
+            pageName: "Product Detail Page",
+            language: "en"
+          },
+          product: {
+            productID: product.id.toString(),
+            productName: product.title,
+            productURL: window.location.href,
+            productImageURL: product.image,
+            productCaption: product.description
+          }
+        });
       });
   </script>
+<script src="https://assets.adobedtm.com/e78d80a30a77/47da9780823f/launch-16c5cbf83423-development.min.js" async></script>
 </body>
 </html>
