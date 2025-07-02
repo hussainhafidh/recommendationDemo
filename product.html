@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product Detail</title>
+
+  <!-- ✅ Initialize adobeDataLayer early -->
+  <script>
+    window.adobeDataLayer = window.adobeDataLayer || [];
+  </script>
+
   <style>
     body { font-family: Arial; padding: 20px; }
     .product-detail { display: flex; flex-direction: column; align-items: center; }
@@ -24,6 +28,7 @@
       .then(res => res.json())
       .then(product => {
         document.title = product.title;
+
         const container = document.getElementById("productDetail");
         container.innerHTML = `
           <img src="${product.image}" alt="${product.title}" />
@@ -31,9 +36,10 @@
           <p>${product.description}</p>
           <p><strong>Price:</strong> $${product.price}</p>
         `;
-       // Adobe Data Layer push
-        window.adobeDataLayer = window.adobeDataLayer || [];
+
+        // ✅ Push product data to adobeDataLayer
         adobeDataLayer.push({
+          event: "productDetailView",
           page: {
             pageName: "Product Detail Page",
             language: "en"
@@ -46,8 +52,13 @@
             productCaption: product.description
           }
         });
+
+        // Lunch SDK after data pushed
+        const launchScript = document.createElement("script");
+        launchScript.src = "https://assets.adobedtm.com/e78d80a30a77/47da9780823f/launch-16c5cbf83423-development.min.js";
+        launchScript.async = true;
+        document.body.appendChild(launchScript);
       });
   </script>
-<script src="https://assets.adobedtm.com/e78d80a30a77/47da9780823f/launch-16c5cbf83423-development.min.js" async></script>
 </body>
 </html>
