@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Product Detail</title>
 
-  <!-- ✅ Initialize adobeDataLayer early -->
+  <!-- Initialize adobeDataLayer early -->
   <script>
     window.adobeDataLayer = window.adobeDataLayer || [];
   </script>
@@ -37,7 +37,7 @@
           <p><strong>Price:</strong> $${product.price}</p>
         `;
 
-        // ✅ Push product data to adobeDataLayer
+        // Push product data to adobeDataLayer
         adobeDataLayer.push({
           event: "productDetailView",
           page: {
